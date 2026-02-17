@@ -38,69 +38,6 @@ CAPTIONEER6 replaces a multi-tool workflow that previously required running sepa
 
 ---
 
-## Prerequisites
-
-Before installing CAPTIONEER6, ensure you have the following:
-
-- **Node.js** (v18 or later) — [nodejs.org](https://nodejs.org/)
-- **Rust** (latest stable) — [rustup.rs](https://rustup.rs/)
-- **OpenRouter API Key** — [openrouter.ai/keys](https://openrouter.ai/keys) (required for captioning)
-
-On Windows, you also need:
-- **Visual Studio Build Tools** with the "Desktop development with C++" workload
-- **WebView2** runtime (pre-installed on Windows 10/11)
-
----
-
-## Installation
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/MushroomFleet/captioneer6.git
-cd captioneer6
-```
-
-### Install Dependencies
-
-```bash
-npm install
-```
-
-This installs all frontend dependencies. Rust/Tauri dependencies are fetched automatically on first build.
-
----
-
-## Usage
-
-### Development Mode (Browser)
-
-Run the frontend only in your browser for rapid development:
-
-```bash
-npm run dev
-```
-
-Opens at [http://localhost:1420](http://localhost:1420).
-
-### Development Mode (Desktop)
-
-Run as a native desktop window with Tauri:
-
-```bash
-npm run tauri:dev
-```
-
-This starts both the Vite dev server and the Tauri webview window with hot-reload.
-
-### Production Build (MSI Installer)
-
-Build the distributable Windows installer:
-
-```bash
-npm run tauri:build
-```
-
 The MSI and NSIS installers are output to `src-tauri/target/release/bundle/`.
 
 ---
@@ -135,63 +72,6 @@ Example output: `sks woman, a detailed description of the image...`
 
 ---
 
-## Project Structure
-
-```
-captioneer6/
-├── index.html                  # Entry HTML
-├── package.json                # Dependencies and scripts
-├── vite.config.ts              # Vite config (port 1420, COOP/COEP headers)
-├── src/
-│   ├── main.tsx                # React entry point
-│   ├── App.tsx                 # Root component with tab routing
-│   ├── types/
-│   │   └── index.ts            # All TypeScript interfaces and constants
-│   ├── styles/
-│   │   ├── theme.ts            # Design tokens (colors, fonts, spacing)
-│   │   └── globals.css         # Global styles, animations, fonts
-│   ├── services/
-│   │   ├── frameExtractor.ts   # Canvas API video frame extraction
-│   │   ├── imageUtils.ts       # File type checks, base64 conversion
-│   │   ├── openrouter.ts       # OpenRouter API client + post-processing
-│   │   └── zipService.ts       # JSZip wrappers for frames/captions/datasets
-│   ├── hooks/
-│   │   ├── useVideoExtractor.ts  # Video loading + extraction state
-│   │   ├── useCaptioner.ts       # Captioning pipeline state
-│   │   ├── usePipeline.ts        # Unified pipeline orchestration
-│   │   ├── useLogger.ts          # Log state management
-│   │   └── useLocalStorage.ts    # Generic localStorage hook
-│   └── components/
-│       ├── Header.tsx            # App header with logo and settings
-│       ├── TabNav.tsx            # Three-tab navigation
-│       ├── splicer/
-│       │   └── SplicerPanel.tsx  # Complete splicer tab UI
-│       ├── captioner/
-│       │   └── CaptionerPanel.tsx  # Complete captioner tab UI
-│       ├── pipeline/
-│       │   └── PipelinePanel.tsx   # Complete pipeline tab UI
-│       ├── shared/
-│       │   ├── LogConsole.tsx      # Color-coded log display
-│       │   ├── ProgressBar.tsx     # Reusable progress bar
-│       │   ├── SettingsModal.tsx    # API key/model settings
-│       │   └── StatusIndicator.tsx  # Status dot with label
-│       └── ui/
-│           ├── Button.tsx          # Styled button variants
-│           ├── Input.tsx           # Styled text input
-│           └── Panel.tsx           # Numbered panel container
-├── src-tauri/
-│   ├── Cargo.toml              # Rust dependencies
-│   ├── tauri.conf.json         # Tauri v2 app config (window, CSP, bundling)
-│   ├── capabilities/
-│   │   └── default.json        # Permission capabilities
-│   ├── icons/                  # App icons (all platforms)
-│   └── src/
-│       ├── main.rs             # Rust entry point
-│       └── lib.rs              # Tauri builder setup
-```
-
----
-
 ## Supported Formats
 
 ### Video Input
@@ -202,19 +82,6 @@ captioneer6/
 
 ### Video Input (Captioner — extracts frame 15 for captioning)
 - `.mp4`, `.webm`, `.mov`, `.avi`, `.mkv`, `.m4v`
-
----
-
-## Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start Vite dev server (browser, port 1420) |
-| `npm run build` | TypeScript check + Vite production build |
-| `npm run tauri:dev` | Start Tauri desktop app in development |
-| `npm run tauri:build` | Build production MSI/NSIS installers |
-| `npm run lint` | Run ESLint |
-| `npm run preview` | Preview production build locally |
 
 ---
 
